@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Time Travel Heist</title>
+<meta name="description" content="Help with Time Travel Heist: saved progress, locked levels, sound and haptics, resetting the campaign, and how to report a problem.">
+<link rel="canonical" href="https://timetravelheist.com/support">
+<meta name="theme-color" content="#241a12">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="masthead">
+  <a class="wordmark" href="index.html">Time Travel Heist</a>
+  <div class="rule-deco" aria-hidden="true"><span></span></div>
+  <nav aria-label="Site">
+    <ul class="nav">
+      <li><span class="soon">The Game</span></li>
+      <li><span class="soon">Gallery</span></li>
+      <li><span class="soon">Demo</span></li>
+      <li><span class="soon">Press</span></li>
+      <li><a href="support.html" aria-current="page">Support</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="sheet">
+
+  <section class="doc-section doc-head">
+    <div class="rail">
+      <h1>Support</h1>
+      <p class="dateline">Time Travel Heist for Android</p>
+    </div>
+    <div class="body">
+      <p class="lede">
+        Most of what goes wrong with this game has a short answer, and the short answers are all on
+        this page. If yours is not here, write to us — a real person reads it, and there are not so
+        many of you that your message will be lost.
+      </p>
+
+      <p class="contact-card">
+        <a href="mailto:support@timetravelheist.com">support@timetravelheist.com</a>
+      </p>
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>Before you write in</h2></div>
+    <div class="body">
+      <p>
+        None of this is required — send a one-line message if that is what you have time for. But a
+        bug is much easier to find with these four things than without them:
+      </p>
+
+      <ul>
+        <li><strong>Your phone and its Android version.</strong> In Android's Settings, under <em>About phone</em>.</li>
+        <li><strong>The app version.</strong> Android Settings → <em>Apps</em> → <em>Time Travel Heist</em> shows it at the bottom. The game does not display its own version number anywhere, so this is the only place to find it.</li>
+        <li><strong>Which level</strong>, by the name on the level-select screen.</li>
+        <li><strong>What you did and what happened instead.</strong> "I tapped a square three away and the main character walked into the bot" is worth more than "the movement is broken", because we can replay it.</li>
+      </ul>
+
+      <p>
+        If the game crashed, say what you were doing in the few seconds before — a crash on the
+        board and a crash while a story card is open are usually different faults.
+      </p>
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>Progress and saving</h2></div>
+    <div class="body">
+
+      <h3>Where is my progress kept?</h3>
+
+      <p>
+        On your phone, in the app's own private storage — not on any server, because the game has no
+        server. It records which levels you have attempted, which you have completed, your best turn
+        count for each, your saved solutions, and your settings. Nothing else, and nothing about you.
+      </p>
+
+      <h3>Will it survive a new phone?</h3>
+
+      <p>
+        Usually, yes. The game lets Android's standard backup service include its saved data, so if
+        you have device backup switched on, your progress travels with your Google account to a new
+        phone. It is Android's mechanism rather than ours, so we cannot recover a save for you if it
+        does not — there is no copy of it anywhere we can reach.
+      </p>
+
+      <h3>My progress has disappeared</h3>
+
+      <p>Usually one of three things, in order of likelihood:</p>
+
+      <ul>
+        <li><strong>The app's data was cleared</strong> — by you, by a cleaner app, or by "Clear storage" in Android's app settings. This erases the save completely and it cannot be recovered.</li>
+        <li><strong>It was reinstalled without a backup</strong>, on a device with backup switched off.</li>
+        <li><strong>Reset campaign was tapped</strong> on the main menu. It asks first and warns that it cannot be undone, but it is next to the other menu buttons and it has been hit by accident before.</li>
+      </ul>
+
+      <p>
+        If none of those fits, please do write in — a save that vanishes on its own is a bug we want
+        to see, and knowing your phone and Android version is most of finding it.
+      </p>
+
+      <h3>How do I start the campaign over?</h3>
+
+      <p>
+        <strong>Main menu → Reset campaign.</strong> It asks for confirmation first. It erases every
+        completion, every best-turns score and every saved solution, re-locks the campaign, and lets
+        the story explain itself from the beginning again. <strong>Your settings are kept</strong> —
+        sound, haptics, walking speed — because those are preferences about the app rather than
+        progress through it. It cannot be undone.
+      </p>
+
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>Getting stuck</h2></div>
+    <div class="body">
+
+      <h3>Why is the next level locked?</h3>
+
+      <p>
+        Three rules are working at once, and it is almost always the second one that surprises people:
+      </p>
+
+      <ul>
+        <li><strong>A level opens once the one before it has been attempted</strong> — attempted, not completed. One honest try is enough to open the next.</li>
+        <li><strong>Levels open in small groups.</strong> A group opens when all but one of the previous group are complete. So a single unsolved level does not stop you, but two in the same group will.</li>
+        <li><strong>A chapter opens</strong> when every level in the current one has been attempted, at most one of them is unfinished, and at most two are unfinished across the whole campaign.</li>
+      </ul>
+
+      <p>
+        The short version: <strong>you may leave levels behind, but only two in the whole game.</strong>
+        Carry two and the current chapter has to be cleared perfectly before the next one opens. That
+        is deliberate — the pressure is meant to rise exactly when you are getting away with things —
+        and it is designed so there is always a way through inside the chapter you are on. You will
+        never be sent back to an earlier one.
+      </p>
+
+      <h3>I genuinely cannot solve a level</h3>
+
+      <p>
+        Leave it. That is a supported way to play, not a failure state: attempting a level opens the
+        next one, and the campaign expects you to be carrying one or two unsolved levels. Come back
+        later — these puzzles are much easier the second time you meet them, when you have seen the
+        trick that a later level teaches.
+      </p>
+
+      <h3>I have forgotten how the controls work</h3>
+
+      <p>
+        There is a <strong>How to play</strong> card in the game, and a <strong>Legend</strong> that
+        names every piece on the board. Both are reachable from the sheet on the play screen.
+      </p>
+
+      <h3>I turned the story off and want the explanations back</h3>
+
+      <p>
+        <strong>Options → Text → Show everything again.</strong> That brings back every one-off
+        explanation and story card, including the ones you have already dismissed. Resetting the
+        campaign does the same thing as a side effect.
+      </p>
+
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>Sound and feel</h2></div>
+    <div class="body">
+
+      <h3>Nothing buzzes when I press and hold</h3>
+
+      <p>
+        Check your <strong>phone's</strong> vibration settings first. The game asks Android for a
+        short buzz, but Android silently ignores that request when the system's own touch haptics are
+        switched off — so the game can be set to Strong and still do nothing. This is the single
+        commonest report we get, and it is almost never the game.
+      </p>
+
+      <p>
+        If system haptics are on and you still feel nothing, try <strong>Options → Haptics</strong>
+        and tap through the four settings: each one buzzes as you select it, so you can feel the
+        difference directly. The steps are deliberately far apart — a weak buzz and a slightly less
+        weak buzz feel identical on most phones, which is a mistake this game has already made once.
+      </p>
+
+      <h3>There is no sound</h3>
+
+      <p>
+        Sound effects and music are separate channels, each with its own switch and volume in
+        <strong>Options</strong>. Check that the channel's switch is on, not just that its volume is
+        up. Then check the phone is not in silent mode, and that the media volume — not the ringer —
+        is turned up.
+      </p>
+
+      <h3>The main character walks too fast to follow</h3>
+
+      <p>
+        <strong>Options → Travel speed</strong>, anywhere from one to five squares a second. Slower is
+        easier to abandon partway through, which matters more than it sounds when you have tapped the
+        wrong square.
+      </p>
+
+      <h3>I keep collapsing the timeline by accident</h3>
+
+      <p>
+        There is a warning for exactly this: <strong>Options → Warn when the timeline collapses</strong>,
+        which is on by default. If it is on and you are still being caught out, that is useful
+        feedback — tell us which level and what you were doing.
+      </p>
+
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>The app itself</h2></div>
+    <div class="body">
+
+      <h3>Does it need an internet connection?</h3>
+
+      <p>
+        No — and it never uses one. Every level, image and sound is inside the app. It plays exactly
+        the same in aeroplane mode, on a train, or with the SIM taken out. It uses no mobile data at
+        all, and there is nothing in it that phones home. See the
+        <a href="privacy.html">privacy policy</a> for the detail.
+      </p>
+
+      <h3>Why does it ask for the Internet permission, then?</h3>
+
+      <p>
+        It does not ask you for anything — there is no prompt — but the permission is declared, and a
+        careful reader will spot it in the store listing. The game is built on a framework that needs
+        it to load the game's <em>own</em> files inside its display component. No request ever leaves
+        your phone. The only other permission is Vibrate, for the confirming buzz.
+      </p>
+
+      <h3>Refunds</h3>
+
+      <p>
+        Purchases are handled by Google Play, not by us, so refunds go through Google. Play offers a
+        self-service refund shortly after purchase from your order history; after that window, request
+        one through Google Play support. We have no access to your payment details and cannot process
+        a refund ourselves — but if something about the game is broken for you, please tell us
+        anyway, because that is a bug we would rather fix than lose you over.
+      </p>
+
+      <h3>What is not here yet</h3>
+
+      <ul>
+        <li><strong>Other languages.</strong> The game is English-only today. Translation is planned, and the game was built with it in mind — every line of text in it is already a translatable record rather than a string buried in the code.</li>
+        <li><strong>An in-app version number.</strong> Until there is one, Android's app settings are where to find it.</li>
+      </ul>
+
+    </div>
+  </section>
+
+
+  <section class="doc-section">
+    <div class="rail"><h2>Still stuck?</h2></div>
+    <div class="body">
+      <p>
+        Write in. Bug reports, questions, a level you think is unfair, or a level you are proud of
+        beating — all welcome, and all read.
+      </p>
+
+      <p class="contact-card">
+        <a href="mailto:support@timetravelheist.com">support@timetravelheist.com</a>
+      </p>
+
+      <p>
+        For anything about data, tracking or your privacy, <a href="privacy.html">the privacy policy</a>
+        answers most of it, and <a href="mailto:privacy@timetravelheist.com">privacy@timetravelheist.com</a>
+        reaches the same person.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2026 Annanor Technologies Ltd. All rights reserved.</p>
+  <!-- Required on every page by the Companies (Trading Disclosures) Regulations: a UK
+       limited company's website must state the registered name, the place of registration,
+       the registered number and the registered office address. -->
+  <p class="legal-id">
+    Annanor Technologies Ltd. is registered in England and Wales,
+    company number 17432852.
+    Registered office: 50 Albert Road, London, CR4 4AH.
+  </p>
+  <p><a href="index.html">timetravelheist.com</a></p>
+</footer>
+
+</body>
+</html>

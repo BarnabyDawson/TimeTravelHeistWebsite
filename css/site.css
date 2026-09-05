@@ -1,0 +1,464 @@
+/* Time Travel Heist — companion site, shared stylesheet.
+   ---------------------------------------------------------------------------
+   The palette is lifted from the app rather than invented, so the site and the
+   game are recognisably the same object:
+
+     --brown-deep   #241a12   the app's sepia chrome (game/index.html, :root[data-theme="sepia"])
+     --marble/floor #c49c75   the sepia board floor (game/theme.js, SEPIA.floor)
+     --teal         #126b66   the duct verdigris — the one cool hue on a warm board
+     --gold         #a8781f   drawn from portalStable #e8a825, the board's "valuable" colour
+
+   NO EXTERNAL RESOURCES. No webfont CDN, no script hosts, no embeds. That is a
+   design decision the privacy policy depends on: a Google Fonts <link> ships the
+   reader's IP address to a third party on every page load, and this site claims
+   not to do that. The deco feel comes from letter-spacing and caps on a system
+   serif instead. Everything here is one file, cached, and works offline.
+
+   ---------------------------------------------------------------------------
+   THE LAYOUT, AND WHY IT IS NOT JUST A WIDER COLUMN (2026-09-04)
+
+   The sheet started at 768px and read as a ribbon on a wide display. The naive
+   fix — doubling --measure — is a trap: prose set at ~130 characters a line is
+   materially harder to read, because the eye loses the start of the next line
+   on the return sweep. Newspapers have used narrow columns for two centuries
+   for this reason and not for want of paper.
+
+   So the sheet doubles, and the SECOND column is what fills it: on a wide
+   screen each section's heading moves out into a left-hand rail, right-aligned
+   against the text and sticky, so it stays beside you through a long section.
+   The reading measure stays near 70 characters throughout. On anything
+   narrower the rail collapses and the heading sits above its section, which is
+   the ordinary stacked document — one set of markup, no duplicated content.
+   ------------------------------------------------------------------------- */
+
+:root {
+  /* Ground: the dark warm brown the app's levels sit on. */
+  --brown-deep: #241a12;
+  --brown-mid:  #392a1d;
+  --brown-line: #6b4f38;
+
+  /* The marble sheet the text sits on. */
+  --marble:      #efe5d3;
+  --marble-edge: #dcccb0;
+
+  /* Ink on marble — dark warm brown, not black. */
+  --ink:       #2c2016;
+  --ink-soft:  #5f4a34;
+  --ink-faint: #8a7358;
+
+  /* Ink on brown. */
+  --ink-up:      #f6ead9;
+  --ink-up-soft: #cbb49b;
+
+  --teal: #14615c;
+  --teal-bright: #4bbdb2;
+  --gold: #9a6c17;
+
+  --rule: rgba(112, 88, 60, 0.28);
+
+  /* The four numbers the whole layout is built from. Together they put the
+     wide sheet at ~1350px against the 768px it started at, with the reading
+     measure held in the mid-70s of characters. */
+  --measure: 48rem;   /* the text column — about 75 characters at 20px */
+  --rail:    20rem;   /* the heading rail, wide screens only */
+  --gap:    4.5rem;   /* between rail and text */
+  --sheet-pad: clamp(1.25rem, 4vw, 6rem);
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  /* Brown all the way to the edges, including the overscroll rubber-band area. */
+  background: var(--brown-deep);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  /* Fluid type: 17px on a phone, 20px from about 1500px up. The upper end is
+     half the answer to "it renders quite small" — a wider sheet at the same
+     17px would only have bought a longer line, not a bigger page. */
+  font: clamp(1.0625rem, 0.98rem + 0.28vw, 1.25rem)/1.65
+        "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  color: var(--ink-up);
+  background-color: var(--brown-deep);
+  position: relative;
+}
+
+/* A faint pool of light behind the sheet, so the page has a centre.
+   This is a fixed LAYER rather than `background-attachment: fixed` on the body.
+   The two look identical, but a fixed background attachment on a document this
+   long makes the browser repaint the whole page on every scroll frame — enough
+   to lock the renderer solid on the privacy policy, which is measurably what
+   happened. A fixed positioned element is composited instead, and costs nothing. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 55% at 50% 0%, rgba(196, 156, 117, 0.16), transparent 62%),
+    radial-gradient(90% 60% at 50% 100%, rgba(18, 107, 102, 0.07), transparent 70%);
+}
+
+/* ---------------------------------------------------------------- masthead */
+
+.masthead {
+  text-align: center;
+  padding: clamp(1.75rem, 6vw, 3.5rem) 1.25rem clamp(1.25rem, 3vw, 2rem);
+}
+
+.wordmark {
+  display: inline-block;
+  margin: 0;
+  font-size: clamp(1.15rem, 4.4vw, 2.15rem);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;          /* letter-spacing pads the right; put it back on the left */
+  text-transform: uppercase;
+  color: var(--ink-up);
+  text-decoration: none;
+}
+a.wordmark:hover, a.wordmark:focus-visible { color: var(--teal-bright); }
+
+/* The deco rule under the title: two hairlines around a lozenge. */
+.rule-deco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  max-width: 22rem;
+  margin: 1.15rem auto 0;
+  color: var(--gold);
+}
+.rule-deco::before,
+.rule-deco::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, currentColor 35%, currentColor 65%, transparent);
+  opacity: 0.7;
+}
+.rule-deco span {
+  width: 7px;
+  height: 7px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+/* -------------------------------------------------------------------- nav */
+
+.nav {
+  margin: 1.35rem auto 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  font-size: clamp(0.7rem, 0.62rem + 0.3vw, 0.8rem);
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+.nav a {
+  color: var(--ink-up-soft);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+.nav a:hover,
+.nav a:focus-visible { color: var(--teal-bright); border-bottom-color: var(--teal-bright); }
+.nav [aria-current="page"] { color: var(--ink-up); border-bottom-color: var(--gold); }
+/* Pages that do not exist yet. Shown so the shape of the site is visible while
+   it is being built, but not clickable — a nav full of 404s is worse than a nav
+   that admits what is finished. Delete the span, add the <a>. */
+.nav .soon { color: var(--ink-up-soft); opacity: 0.42; cursor: default; }
+
+/* -------------------------------------------------------------- the sheet */
+
+.sheet {
+  /* Narrow and mid widths: one column. The rail layout below widens this. */
+  max-width: calc(var(--measure) + var(--sheet-pad) * 2);
+  margin: 0 auto clamp(2rem, 6vw, 4rem);
+  padding: var(--sheet-pad);
+  color: var(--ink);
+  overflow-wrap: break-word;
+
+  /* Marble: a warm cream, veined by a small tiling texture.
+     THE VEINING IS A TILED IMAGE, NOT A GRADIENT STACK, and that is a performance
+     fix rather than a preference. It was three crossing `repeating-linear-gradient`
+     layers at odd angles; on a page this long that is a single background box
+     several thousand pixels tall which Chrome has to rasterise in full, and it
+     locked the renderer hard enough that the tab stopped answering. The texture
+     below is one 320px SVG tile — `stitchTiles` makes the noise seamless across
+     the repeat — decoded once and then simply repeated, so the cost no longer
+     grows with the length of the page.
+     The anisotropic baseFrequency (low across, high down) is what turns noise
+     into stone: it stretches the grain into soft horizontal veins. */
+  background-color: var(--marble);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='v' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.007 0.06' numOctaves='4' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23v)' opacity='0.14'/%3E%3C/svg%3E"),
+    linear-gradient(160deg, rgba(255, 252, 244, 0.7), rgba(255, 252, 244, 0) 42%),
+    linear-gradient(340deg, var(--marble-edge), rgba(220, 204, 176, 0) 34%);
+  background-repeat: repeat, no-repeat, no-repeat;
+
+  border: 1px solid rgba(58, 42, 28, 0.35);
+  box-shadow:
+    0 1px 0 rgba(255, 250, 240, 0.5) inset,
+    0 18px 46px rgba(0, 0, 0, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ------------------------------------------------------- document sections */
+/* Every section is {.rail, .body}. Stacked by default; side by side on wide
+   screens. See the layout note at the top of this file. */
+
+.doc-section {
+  margin-top: 2.6rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+.doc-head {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.doc-section > .body > :last-child { margin-bottom: 0; }
+
+/* ------------------------------------------------------------ typography */
+
+h1 {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.55rem, 1.2rem + 1.4vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(0.95rem, 0.88rem + 0.24vw, 1.06rem);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+h3 {
+  margin: 1.85rem 0 0.4rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.body > h3:first-child { margin-top: 0.35rem; }
+
+p, ul, ol, dl { margin: 0 0 1.05rem; }
+ul, ol { padding-left: 1.3rem; }
+li { margin-bottom: 0.4rem; }
+li > ul, li > ol { margin-top: 0.4rem; }
+
+a {
+  color: var(--teal);
+  text-underline-offset: 0.16em;
+  text-decoration-thickness: 1px;
+}
+a:hover { color: var(--gold); }
+
+:where(a, button, summary):focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+code, .key {
+  font: 0.86em/1.4 ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  background: rgba(90, 70, 48, 0.1);
+  border: 1px solid rgba(90, 70, 48, 0.18);
+  border-radius: 3px;
+  padding: 0.08em 0.34em;
+  /* Deliberately allowed to wrap. A nowrap identifier like the package name is
+     wider than a 320px phone's text column and would push the page sideways. */
+  overflow-wrap: break-word;
+}
+
+.dateline {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.lede { font-size: 1.09em; color: var(--ink-soft); }
+
+/* ------------------------------------------------------ the summary panel */
+
+.summary {
+  margin: 1.5rem 0 2rem;
+  padding: 1.15rem 1.35rem 1.15rem 1.5rem;
+  background: rgba(20, 97, 92, 0.07);
+  border: 1px solid rgba(20, 97, 92, 0.24);
+  border-left: 4px solid var(--teal);
+}
+.summary h2 { margin: 0 0 0.6rem; font-size: 0.8rem; letter-spacing: 0.2em; }
+.summary ul { margin: 0; padding-left: 1.15rem; }
+.summary li::marker { color: var(--teal); }
+.summary li:last-child { margin-bottom: 0; }
+
+/* -------------------------------------------------------- key/value list */
+
+.what-we-store { margin: 0 0 1.2rem; padding: 0; }
+.what-we-store dt {
+  margin-top: 0.9rem;
+  font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 0.88em;
+  color: var(--gold);
+  overflow-wrap: break-word;
+}
+.what-we-store dt:first-of-type { margin-top: 0; }
+.what-we-store dd { margin: 0.1rem 0 0; color: var(--ink-soft); }
+
+/* ---------------------------------------------------------------- contact */
+
+.contact-card {
+  margin: 1rem 0 0;
+  padding: 1.1rem 1.35rem;
+  background: rgba(90, 70, 48, 0.07);
+  border: 1px solid var(--rule);
+  text-align: center;
+}
+.contact-card a { font-size: 1.1em; letter-spacing: 0.03em; }
+
+/* Anything still to be settled before this goes live. Loud on purpose. */
+.todo {
+  background: rgba(154, 108, 23, 0.18);
+  border-bottom: 1px dashed var(--gold);
+  padding: 0 0.2em;
+  font-style: italic;
+}
+
+/* ----------------------------------------------------------------- footer */
+
+.footer {
+  max-width: calc(var(--measure) + var(--sheet-pad) * 2);
+  margin: 0 auto;
+  padding: 0 1.25rem clamp(2.5rem, 7vw, 4.5rem);
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--ink-up-soft);
+}
+.footer a { color: var(--ink-up-soft); }
+.footer a:hover { color: var(--teal-bright); }
+.footer p { margin: 0.3rem 0; }
+
+/* The statutory company identification. Required on every page, so it is set
+   quietly — present and legible, but not competing with the content. */
+.legal-id {
+  max-width: 34rem;
+  margin-inline: auto;
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-up-soft);
+  opacity: 0.72;
+}
+
+/* ================================================================== WIDE ==
+   The rail layout. The breakpoint is the sheet's full width plus a margin of
+   brown either side — below it there is not room for the rail, so the document
+   stays stacked rather than being squeezed. */
+
+/* 84rem = 1344px. Chosen to sit just UNDER 1366, which is still one of the
+   commonest laptop widths — at 86rem it missed by ten pixels and those machines
+   dropped to a 877px sheet stranded in the middle of the window, which is the
+   exact complaint this layout exists to fix. The min() guard above keeps the
+   edges honest in the band between the breakpoint and the sheet's full width. */
+@media (min-width: 84rem) {
+  /* The min() is the guard band: between the breakpoint and the sheet's full
+     width there would otherwise be no brown left at the edges, and the sheet
+     would sit flush against the window. */
+  .sheet,
+  .footer {
+    max-width: min(
+      calc(var(--rail) + var(--gap) + var(--measure) + var(--sheet-pad) * 2),
+      calc(100% - 3rem)
+    );
+  }
+
+  .doc-section {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    column-gap: var(--gap);
+    margin-top: 3rem;
+    padding-top: 1.4rem;
+  }
+
+  /* Right-aligned against the text column, and sticky so the section you are
+     reading is still named when you are 2,000px into it. `align-self: start`
+     is what stops the rail stretching to the row height — without it there is
+     nothing for `sticky` to move within. */
+  .doc-section > .rail {
+    position: sticky;
+    top: 2.5rem;
+    align-self: start;
+    text-align: right;
+  }
+
+  .doc-head { padding-top: 0; }
+  .doc-head > .rail { position: static; }
+  .doc-head > .body > .lede { margin-top: 0.2rem; }
+
+  h1 { margin-bottom: 0.5rem; }
+}
+
+/* ================================================================ NARROW ==
+   Only the two things that cannot shrink on their own: the wide letter-spacing
+   on the title, and the nav. Everything else is fluid already. */
+
+@media (max-width: 30rem) {
+  .wordmark { letter-spacing: 0.18em; text-indent: 0.18em; }
+  .nav { gap: 0.5rem 1.1rem; letter-spacing: 0.12em; }
+  .summary { padding: 1rem 1rem 1rem 1.15rem; }
+  .contact-card { padding: 0.9rem 0.75rem; }
+  h3 { margin-top: 1.5rem; }
+}
+
+/* ------------------------------------------------------------------ print */
+/* A privacy policy is saved as a PDF more often than any other page on a site
+   like this. Give it a clean one: black on white, no brown, no marble, and no
+   rail — a printed page is narrower than the breakpoint anyway, but say so. */
+@media print {
+  html, body { background: #fff; color: #000; }
+  body { font-size: 11pt; }
+  .masthead { padding: 0 0 1rem; }
+  .nav, .rule-deco { display: none; }
+  .wordmark { color: #000; font-size: 14pt; }
+  .sheet {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background: none;
+    border: 0;
+    box-shadow: none;
+  }
+  .doc-section { display: block; break-inside: auto; }
+  .doc-section > .rail { position: static; text-align: left; }
+  h2, h3 { color: #000; break-after: avoid; }
+  a { color: #000; text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; word-break: break-all; }
+  .summary, .contact-card { border: 1px solid #000; background: none; }
+  .footer { color: #000; padding: 1rem 0 0; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
