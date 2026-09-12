@@ -1,6 +1,6 @@
 This folder contains a basic website for the time travel heist Android app. This document describes the intended structure of the website and it's contents.
 
-I intend to host this page on Cloudflare with the domain timetravelheist.com
+I intend to host this page on Cloudflare with the domain timetravelheist.co.uk
 
 
 
