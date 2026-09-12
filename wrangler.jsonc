@@ -1,0 +1,18 @@
+{
+  // Static-assets-only Worker: no `main`, so Cloudflare serves `public/`
+  // directly from its edge cache and never boots a script.
+  //
+  // `name` must match the Worker that the Workers Builds connection created,
+  // otherwise `wrangler deploy` will quietly create a SECOND Worker and the
+  // custom domain will still point at the empty one.
+  "name": "timetravelheist-website",
+  "compatibility_date": "2026-09-12",
+  "assets": {
+    "directory": "./public",
+    // Serves public/support.html at /support, which is what the pages'
+    // <link rel="canonical"> tags already claim. This is wrangler's default,
+    // stated here so a future edit doesn't silently break those URLs.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
