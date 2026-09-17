@@ -337,6 +337,34 @@ code, .key {
 }
 .contact-card a { font-size: 1.1em; letter-spacing: 0.03em; }
 
+/* ----------------------------------------------------------- the notice */
+/* A status about the product rather than a part of the document, so it sits
+   above the first section and takes the sheet's full width — across the rail
+   as well as the text, on screens wide enough to have one. Gold rather than
+   the summary panel's teal: the two must not read as the same kind of thing.
+   Quiet by design. It is the first thing on the page and it stays there until
+   the game ships, so it has to survive being looked at every visit. */
+.notice {
+  display: block;
+  margin: 0 0 2.6rem;
+  padding: 1.05rem 1.35rem;
+  text-align: center;
+  color: var(--ink-soft);
+  background: rgba(154, 108, 23, 0.09);
+  border: 1px solid rgba(154, 108, 23, 0.38);
+}
+.notice b {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;    /* as .wordmark: put the tracking back on the left */
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.notice p { margin: 0; }
+
 /* Anything still to be settled before this goes live. Loud on purpose. */
 .todo {
   background: rgba(154, 108, 23, 0.18);
@@ -428,6 +456,7 @@ code, .key {
   .nav { gap: 0.5rem 1.1rem; letter-spacing: 0.12em; }
   .summary { padding: 1rem 1rem 1rem 1.15rem; }
   .contact-card { padding: 0.9rem 0.75rem; }
+  .notice { padding: 0.9rem 0.85rem; }
   h3 { margin-top: 1.5rem; }
 }
 
@@ -455,7 +484,8 @@ code, .key {
   h2, h3 { color: #000; break-after: avoid; }
   a { color: #000; text-decoration: underline; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; word-break: break-all; }
-  .summary, .contact-card { border: 1px solid #000; background: none; }
+  .summary, .contact-card, .notice { border: 1px solid #000; background: none; }
+  .notice b { color: #000; }
   .footer { color: #000; padding: 1rem 0 0; max-width: none; }
 }
 
