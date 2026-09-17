@@ -4,24 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — Time Travel Heist</title>
-<meta name="description" content="How the Time Travel Heist Android game and timetravelheist.co.uk handle your data. The game collects nothing and makes no network connections; the website uses cookieless analytics.">
+<meta name="description" content="How the Time Travel Heist Android game and timetravelheist.co.uk handle your data. The game collects nothing and makes no network connections; the website sets no cookies and runs no analytics.">
 <link rel="canonical" href="https://timetravelheist.co.uk/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Time Travel Heist">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Privacy Policy — Time Travel Heist">
+<meta property="og:description" content="The game collects nothing and contacts no server. This site sets no cookies and runs no analytics.">
+<meta property="og:url" content="https://timetravelheist.co.uk/privacy">
+<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#241a12">
-<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
 
 <header class="masthead">
-  <a class="wordmark" href="index.html">Time Travel Heist</a>
+  <a class="wordmark" href="/">Time Travel Heist</a>
   <div class="rule-deco" aria-hidden="true"><span></span></div>
   <nav aria-label="Site">
     <ul class="nav">
-      <li><span class="soon">The Game</span></li>
+      <li><a href="/">The Game</a></li>
       <li><span class="soon">Gallery</span></li>
       <li><span class="soon">Demo</span></li>
       <li><span class="soon">Press</span></li>
-      <li><a href="support.html">Support</a></li>
-      <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+      <li><a href="/support">Support</a></li>
+      <li><a href="/privacy" aria-current="page">Privacy</a></li>
     </ul>
   </nav>
 </header>
@@ -31,7 +39,7 @@
   <section class="doc-section doc-head">
     <div class="rail">
       <h1>Privacy Policy</h1>
-      <p class="dateline">Last updated 4 September 2026</p>
+      <p class="dateline">Last updated 17 September 2026</p>
     </div>
     <div class="body">
       <p class="lede">
@@ -48,7 +56,7 @@
           <li><strong>The game contacts no server.</strong> Every level, image and sound is inside the app. It plays identically in aeroplane mode.</li>
           <li><strong>No advertising, no in-app purchases, no analytics, no tracking, no third-party SDKs.</strong></li>
           <li><strong>Your progress stays on your phone</strong>, and is deleted when you uninstall the game.</li>
-          <li><strong>This website sets no cookies</strong> and embeds no third-party fonts, videos or social widgets. Visitor counts come from one cookieless analytics script that cannot identify you or follow you anywhere else.</li>
+          <li><strong>This website sets no cookies, runs no analytics and contains no scripts at all</strong> — no third-party fonts, videos or social widgets either. Every file it serves comes from this domain.</li>
         </ul>
       </section>
 
@@ -197,12 +205,16 @@
       <h3>Analytics</h3>
 
       <p>
-        We use <strong>Cloudflare Web Analytics</strong> to see roughly how many people visit and which
-        pages they read. It is deliberately the least invasive option available: it sets
-        <strong>no cookies</strong>, stores nothing in your browser, does not fingerprint your device,
-        does not build a profile, and cannot follow you to any other website. It reports totals — page
-        views, referring site, country, browser — and never individuals. There is nothing in it we
-        could connect to you if we tried.
+        <strong>There are none.</strong> We run no analytics product on this site — not Google
+        Analytics, not a cookieless alternative, not a tag manager, not a tracking pixel. These pages
+        contain no JavaScript whatsoever, so there is nothing running in your browser to measure you
+        with. What we know about our visitors is whatever our host's ordinary server logs say, which
+        we do not query.
+      </p>
+
+      <p>
+        If that ever changes we will say so here first, with a new date at the top, as described
+        under <em>Changes to this policy</em> below.
       </p>
 
       <h3>Cookies</h3>
@@ -217,18 +229,21 @@
       <h3>Third-party content</h3>
 
       <p>
-        Almost none, and we would rather say so precisely than round it down to zero. There are no
-        embedded videos, no social widgets, no comment system, no advertising, no tag manager and no
-        hosted webfonts — the typefaces here are ones your device already has. Every image and
-        stylesheet is served from this domain, so opening a page here does not quietly announce your
-        visit to anybody.
+        None. There are no embedded videos, no social widgets, no comment system, no advertising, no
+        tag manager and no hosted webfonts — the typefaces here are ones your device already has.
+        Every image and stylesheet is served from this domain, so opening a page here does not
+        quietly announce your visit to anybody.
       </p>
 
       <p>
-        The single exception is the analytics script described above, which is loaded from Cloudflare —
-        the company already serving you this page, so it learns nothing from that request that it did
-        not know a moment earlier.
+        This is enforced rather than merely intended: the site is served with a content security
+        policy that permits no external origin at all, so a stray third-party embed added by mistake
+        would be blocked by your own browser rather than quietly loading.
       </p>
+
+      <!-- The playable demo is not built yet, and this policy describes what the site
+           actually does today rather than what it is going to do. Restore this section
+           on the day the demo ships, not before:
 
       <h3>The playable demo</h3>
 
@@ -238,6 +253,10 @@
         your own machine, exactly as described for the app above, and sends none of it anywhere. To
         remove it, clear this site's data in your browser.
       </p>
+
+           Note that the demo needs JavaScript, so the "no scripts at all" claims in the
+           summary and under Analytics above must be narrowed to the pages that have none,
+           and the script-src in public/_headers must be relaxed for the demo's path. -->
 
       <h3>Contacting us for support</h3>
 
@@ -309,7 +328,7 @@
     company number 17432852.
     Registered office: 50 Albert Road, London, CR4 4AH.
   </p>
-  <p><a href="index.html">timetravelheist.co.uk</a></p>
+  <p><a href="/">timetravelheist.co.uk</a></p>
 </footer>
 
 </body>

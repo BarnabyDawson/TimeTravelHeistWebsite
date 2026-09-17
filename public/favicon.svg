@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Time Travel Heist">
+  <!-- The masthead's deco rule, reduced to an icon: the gold lozenge between two
+       hairlines, on the app's deep sepia brown. Colours are the stylesheet's
+       --brown-deep and --gold, so the tab matches the page it opens. -->
+  <rect width="64" height="64" rx="10" fill="#241a12"/>
+  <g fill="#c8912b">
+    <rect x="9" y="30.25" width="16" height="1.6"/>
+    <rect x="39" y="30.25" width="16" height="1.6"/>
+    <rect x="24.5" y="23.5" width="15" height="15" transform="rotate(45 32 31)"/>
+  </g>
+</svg>

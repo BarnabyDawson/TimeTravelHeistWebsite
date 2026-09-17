@@ -1,0 +1,24 @@
+# Cloudflare Workers static-assets header rules. Not served; consumed at build time.
+#
+# The CSP is the point of this file. The privacy policy claims that opening a page
+# here contacts nobody but this domain, and that there is no JavaScript on the site.
+# These two lines make the browser enforce both, so the claim survives a careless
+# edit rather than depending on one.
+#
+# `style-src 'self'` and no 'unsafe-inline': every rule lives in css/site.css.
+# `img-src 'self' data:` — the marble veining in that stylesheet is an inline
+# data: SVG, so dropping `data:` would strip the texture off every page.
+# When the playable demo lands it will need `script-src 'self'`; narrow that to
+# the demo's own path rather than opening it up site-wide, and update the
+# privacy policy in the same commit.
+
+/*
+  Content-Security-Policy: default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# The stylesheet is the only asset heavy enough to be worth caching hard, and it
+# is the one most likely to change. Left on the default so a deploy is visible
+# immediately; revisit with a hashed filename if it ever matters.

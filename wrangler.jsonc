@@ -1,4 +1,6 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
+
   // Static-assets-only Worker: no `main`, so Cloudflare serves `public/`
   // directly from its edge cache and never boots a script.
   //
@@ -7,6 +9,26 @@
   // custom domain will still point at the empty one.
   "name": "timetravelheist-website",
   "compatibility_date": "2026-09-12",
+
+  // No workers.dev subdomain. The site would otherwise also be live at
+  // timetravelheist-website.<account>.workers.dev, serving the same pages
+  // under a hostname every <link rel="canonical"> on the site disowns —
+  // duplicate content, and a second public address to keep in step.
+  // For a local preview use `npx wrangler dev` instead.
+  "workers_dev": false,
+
+  // Declaring the custom domains here means `wrangler deploy` creates the DNS
+  // records and the certificate itself, rather than leaving them to be clicked
+  // together in the dashboard and drift from this file.
+  //
+  // www is here so that typing it does not fail to resolve. Both hostnames
+  // serve the same pages; the canonical tags name the apex, which is what
+  // search engines index.
+  "routes": [
+    { "pattern": "timetravelheist.co.uk", "custom_domain": true },
+    { "pattern": "www.timetravelheist.co.uk", "custom_domain": true }
+  ],
+
   "assets": {
     "directory": "./public",
     // Serves public/support.html at /support, which is what the pages'
