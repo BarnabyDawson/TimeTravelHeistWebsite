@@ -179,6 +179,41 @@ a.wordmark:hover, a.wordmark:focus-visible { color: var(--teal-bright); }
    that admits what is finished. Delete the span, add the <a>. */
 .nav .soon { color: var(--ink-up-soft); opacity: 0.42; cursor: default; }
 
+/* --------------------------------------------------------------- the hero */
+/* A silent looping film of a vault being played, between the masthead and the
+   sheet. It takes the sheet's exact width and the sheet's border and shadow, so
+   it reads as the top plate of the same object rather than a banner bolted on
+   above it — see the .sheet, .footer, .hero width rules, which must stay in
+   step at BOTH widths or the edges stop lining up.
+
+   `aspect-ratio` matched to the file is what stops the page jumping: the box is
+   the right height before a single byte of video has arrived, so the sheet does
+   not leap down the screen when it does. The source is 1024px wide and is let
+   to stretch past that on a very wide window; it is a soft painted board rather
+   than line art, and losing the alignment with the sheet costs more than the
+   upscale does. */
+.hero {
+  max-width: calc(var(--measure) + var(--sheet-pad) * 2);
+  margin: 0 auto clamp(1.5rem, 4vw, 2.75rem);
+  background: var(--brown-deep);
+  border: 1px solid rgba(58, 42, 28, 0.35);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.hero-film,
+.hero-still {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1024 / 500;
+}
+
+/* The still is the film's own first frame, and is the reduced-motion swap
+   below. Hidden rather than absent by default so there is no script involved. */
+.hero-still { display: none; }
+
 /* -------------------------------------------------------------- the sheet */
 
 .sheet {
@@ -299,6 +334,59 @@ code, .key {
 
 .lede { font-size: 1.09em; color: var(--ink-soft); }
 
+/* --------------------------------------------------------- plates (figures) */
+/* Pictures in a document are plates: bordered, captioned underneath, and
+   centred in the text column rather than bleeding out of it.
+   The modifiers exist because the art is not one shape. A plate set to the full
+   48rem measure is fine for something square and absurd for something 1080x1935
+   — a portrait painting would run to 1,300px tall and the reader would scroll
+   past a single picture for a page and a half. So each aspect gets a width that
+   lands it at a sensible HEIGHT, which is the dimension that actually matters
+   here. Every <img> carries width/height attributes as well, so the space is
+   reserved before the file lands and nothing shifts under the reader. */
+
+.shot {
+  margin: 1.9rem 0;
+}
+.shot > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--brown-deep);   /* while it loads, and behind any transparency */
+  border: 1px solid rgba(58, 42, 28, 0.4);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+.shot figcaption {
+  margin-top: 0.7rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink-faint);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.shot--square { max-width: 32rem; margin-inline: auto; }   /* 1:1  → ~512px tall */
+.shot--tall   { max-width: 21rem; margin-inline: auto; }   /* 3:4  → ~460px tall */
+
+/* Two plates abreast. Single column first, because two 1080x1935 paintings side
+   by side on a phone would be two columns of thumbnails and no detail in either.
+   40rem is roughly where each half is still wide enough to be worth looking at. */
+.plates {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.7rem;
+  margin: 1.9rem 0;
+}
+.plates > .shot { margin: 0; max-width: none; }
+
+@media (min-width: 40rem) {
+  .plates {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.9rem;
+    align-items: start;   /* captions of different lengths must not stretch the images */
+  }
+}
+
 /* ------------------------------------------------------ the summary panel */
 
 .summary {
@@ -414,7 +502,8 @@ code, .key {
      width there would otherwise be no brown left at the edges, and the sheet
      would sit flush against the window. */
   .sheet,
-  .footer {
+  .footer,
+  .hero {
     max-width: min(
       calc(var(--rail) + var(--gap) + var(--measure) + var(--sheet-pad) * 2),
       calc(100% - 3rem)
@@ -486,9 +575,25 @@ code, .key {
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; word-break: break-all; }
   .summary, .contact-card, .notice { border: 1px solid #000; background: none; }
   .notice b { color: #000; }
+
+  /* A video cannot print; its first frame can. */
+  .hero { max-width: none; border: 0; box-shadow: none; background: none; margin: 0 0 1rem; }
+  .hero-film  { display: none; }
+  .hero-still { display: block; }
+  .shot { break-inside: avoid; }
+  .shot > img { border: 1px solid #000; box-shadow: none; background: none; }
+  .shot figcaption { color: #000; }
   .footer { color: #000; padding: 1rem 0 0; max-width: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+
+  /* The hero film is the only moving thing on the site, and a looping eleven
+     seconds of it is exactly what somebody who set this preference asked not to
+     be given. Swap in its first frame, which is the same picture standing still.
+     The <video> is still fetched — nothing but script could prevent that, and
+     these pages have none — but nothing moves, which is what was asked. */
+  .hero-film  { display: none; }
+  .hero-still { display: block; }
 }

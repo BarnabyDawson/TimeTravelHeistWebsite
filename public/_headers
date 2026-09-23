@@ -8,12 +8,17 @@
 # `style-src 'self'` and no 'unsafe-inline': every rule lives in css/site.css.
 # `img-src 'self' data:` — the marble veining in that stylesheet is an inline
 # data: SVG, so dropping `data:` would strip the texture off every page.
+# `media-src 'self'` — the home page's hero film. Under `default-src 'none'` a
+# <video> is blocked outright with no visible error beyond an empty box, so this
+# directive is load-bearing rather than decorative: remove it and the top of the
+# front page silently goes blank. It stays `'self'`, which is the whole point —
+# the film is served from this domain and there is no embed to phone anybody.
 # When the playable demo lands it will need `script-src 'self'`; narrow that to
 # the demo's own path rather than opening it up site-wide, and update the
 # privacy policy in the same commit.
 
 /*
-  Content-Security-Policy: default-src 'none'; style-src 'self'; img-src 'self' data:; font-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; form-action 'none'; base-uri 'none'; frame-ancestors 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
@@ -22,3 +27,12 @@
 # The stylesheet is the only asset heavy enough to be worth caching hard, and it
 # is the one most likely to change. Left on the default so a deploy is visible
 # immediately; revisit with a hashed filename if it ever matters.
+
+# /media/* is now the heaviest thing on the site by an order of magnitude — the
+# film alone is 400KB against a 12KB page — and unlike the stylesheet it is
+# finished art that changes when new art is drawn, not when a rule is tweaked.
+# A day is deliberately modest rather than `immutable`: these filenames are not
+# content-hashed, so anything longer means replacing a picture in place leaves
+# readers looking at the old one with no way to say so.
+/media/*
+  Cache-Control: public, max-age=86400
