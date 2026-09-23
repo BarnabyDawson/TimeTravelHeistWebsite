@@ -187,27 +187,26 @@ a.wordmark:hover, a.wordmark:focus-visible { color: var(--teal-bright); }
    the right height before a single byte of video has arrived, so the sheet does
    not leap down the screen when it does.
 
-   IT IS HALF THE SHEET'S WIDTH, and that is the requirement rather than a
-   taste (2026-09-23). The frame is a fixed 1024x500, so width and height come
-   as a pair: at the sheet's full width the film was 625px tall, which under the
-   masthead is the entire first screen of a laptop. A first-time visitor got a
-   looping board and not one word of the pitch — the line that does the selling,
-   "Step through a locked door…", sat below the fold. Halving the width halves
-   the height with it and puts the hook on screen. THE FILM IS THEREFORE
-   NARROWER THAN THE SHEET ON PURPOSE. Do not "tidy" it back into line with the
-   sheet's edges; that mismatch is the cost of the fix, and it has been paid
-   deliberately twice.
+   IT TAKES THE SHEET'S WIDTH EXACTLY, and shares the sheet's formula to do it
+   — `calc(var(--measure) + var(--sheet-pad) * 2)`, which is also what
+   `.home .sheet` resolves to at every width. Change one and change the other,
+   or the edges stop lining up.
 
-   The `* 0.5` is taken from the SHEET's formula rather than written as a
-   percentage, for two reasons. A percentage would resolve against the body and
-   so against the window, not against the sheet, and it would shrink the film on
-   a PHONE — where it is only ~180px tall, blocks nothing, and already looked
-   right. Half of the sheet formula is ~404px even at the narrowest padding, so
-   on any phone the screen itself is the binding constraint and the film simply
-   fills the width, exactly as before. The cap only starts to bite once there is
-   room to spare. */
+   HOW THE FILM GOT SHORTER, since it is the obvious thing to break (2026-09-23).
+   The frame is a fixed 1024x500, so its width and height move together and it
+   cannot be shortened on its own without cropping. It was 625px tall — under
+   the masthead, the whole first screen of a laptop, with the line that does the
+   selling ("Step through a locked door…") pushed below the fold. The height was
+   bought back by narrowing THE SHEET rather than the film: dropping the rail on
+   the home page took the column from ~1350px to ~890px, and the film, still
+   matching it edge to edge, came down with it.
+
+   So the lever for this is the sheet's width, never the film's own. Capping the
+   film alone was tried twice and both times the mismatched edges cost more than
+   the fold did. If the hook has to come further up again, narrow the sheet, or
+   take the space from the masthead above it. */
 .hero {
-  max-width: calc((var(--measure) + var(--sheet-pad) * 2) * 0.5);
+  max-width: calc(var(--measure) + var(--sheet-pad) * 2);
   margin: 0 auto clamp(1.5rem, 4vw, 2.75rem);
   background: var(--brown-deep);
   border: 1px solid rgba(58, 42, 28, 0.35);
@@ -532,9 +531,9 @@ code, .key {
   /* The min() is the guard band: between the breakpoint and the sheet's full
      width there would otherwise be no brown left at the edges, and the sheet
      would sit flush against the window. */
-  /* .hero is deliberately absent here: it is half the sheet's width in its own
-     rule, and listing it would silently restore the full width at exactly the
-     sizes where the film was burying the hook. */
+  /* .hero is absent from THIS rule because the film only exists on the home
+     page, which opts out of the rail width below. It is lined up with
+     `.home .sheet` instead — see the .home block at the end of this query. */
   .sheet,
   .footer {
     max-width: min(
@@ -584,8 +583,13 @@ code, .key {
 
      Scoped to .home rather than applied to .doc-section outright: privacy and
      support are long, text-only, and are the pages the rail was built for. */
+  /* The film is in this list so the three stay welded together at one width.
+     It is what the hero's own rule already computes, restated here so that
+     changing the home page's column moves the film with it rather than
+     stranding it a few hundred pixels narrower. */
   .home .sheet,
-  .home .footer {
+  .home .footer,
+  .home .hero {
     max-width: calc(var(--measure) + var(--sheet-pad) * 2);
   }
 
