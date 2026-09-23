@@ -77,9 +77,15 @@
   </aside>
 
   <section class="doc-section doc-head">
+    <!-- The visible title is the masthead wordmark directly above, and repeating it
+         here only pushed the hook below the fold. The <h1> stays in the markup but
+         out of sight: a page with no h1 at all gives a screen reader nothing to
+         announce as the document's subject and drops the strongest heading signal a
+         search engine has. "A puzzle game for Android" is gone outright — the
+         "Coming soon" box already says it, and the install button that replaces it
+         on release will say it again. -->
     <div class="rail">
-      <h1>Time Travel Heist</h1>
-      <p class="dateline">A puzzle game for Android</p>
+      <h1 class="visually-hidden">Time Travel Heist &mdash; a puzzle game for Android</h1>
     </div>
     <div class="body">
       <p class="lede">
@@ -92,6 +98,16 @@
         into a time portal, rewind to the moment you arrived, and live those same turns again as
         a second self.
       </p>
+
+      <figure class="shot shot--square">
+        <img src="/media/board-marble.webp" width="1045" height="1045" loading="lazy" decoding="async"
+             alt="A square vault floor of cream marble, walled in with dark wooden doors. Two spiral discs, one green and one blue, sit near the top; hollow rings in the same colours sit elsewhere on the board. Brass switch plates are set into the floor, a pink band of light crosses the room, and a thief in a teal coat stands beside a pile of gold.">
+        <figcaption>
+          A vault, mid-heist. The spirals are time portals &mdash; step into one and your next self
+          wakes on the ring of the next colour. The pink bands are detector beams; the grey runs
+          are ducts, and they are the only cover on the board.
+        </figcaption>
+      </figure>
 
       <p>
         The first self is still there. It does exactly what you told it to, every time, for as
@@ -106,16 +122,6 @@
         The second self can only ever do what the first self left room for, and you won't know
         what that was until you have played it.
       </p>
-
-      <figure class="shot shot--square">
-        <img src="/media/board-marble.webp" width="1045" height="1045" loading="lazy" decoding="async"
-             alt="A square vault floor of cream marble, walled in with dark wooden doors. Two spiral discs, one green and one blue, sit near the top; matching hollow rings sit elsewhere on the board. Brass switch plates are set into the floor, a pink band of light crosses the room, and a thief in a teal coat stands beside a pile of gold.">
-        <figcaption>
-          A vault, mid-heist. The spirals are time portals &mdash; step into one and your next self
-          wakes on the ring of the same colour. The pink bands are detector beams; the grey runs
-          are ducts, and they are the only cover on the board.
-        </figcaption>
-      </figure>
     </div>
   </section>
 
