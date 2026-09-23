@@ -25,7 +25,12 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/css/site.css">
 </head>
-<body>
+<!-- `home` opts this page out of the wide rail layout that privacy and support
+     still use. See the .home rules in site.css: with pictures in the sections,
+     a sticky heading in a 20rem rail leaves a tall empty column beside every
+     plate, so the home page stacks its headings the way every page does on a
+     phone. Long text-only documents keep the rail, which is what it was for. -->
+<body class="home">
 
 <header class="masthead">
   <a class="wordmark" href="/">Time Travel Heist</a>

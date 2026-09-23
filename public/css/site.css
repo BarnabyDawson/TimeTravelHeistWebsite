@@ -187,24 +187,27 @@ a.wordmark:hover, a.wordmark:focus-visible { color: var(--teal-bright); }
    the right height before a single byte of video has arrived, so the sheet does
    not leap down the screen when it does.
 
-   IT TAKES THE SHEET'S EXACT WIDTH, at both breakpoints — see the `.sheet,
-   .footer, .hero` rules, which must stay in step or the edges stop lining up.
+   IT IS HALF THE SHEET'S WIDTH, and that is the requirement rather than a
+   taste (2026-09-23). The frame is a fixed 1024x500, so width and height come
+   as a pair: at the sheet's full width the film was 625px tall, which under the
+   masthead is the entire first screen of a laptop. A first-time visitor got a
+   looping board and not one word of the pitch — the line that does the selling,
+   "Step through a locked door…", sat below the fold. Halving the width halves
+   the height with it and puts the hook on screen. THE FILM IS THEREFORE
+   NARROWER THAN THE SHEET ON PURPOSE. Do not "tidy" it back into line with the
+   sheet's edges; that mismatch is the cost of the fix, and it has been paid
+   deliberately twice.
 
-   That alignment was chosen over a shorter hero, knowingly (2026-09-23). The
-   frame is a fixed 1024x500, so at the sheet's full 1280px the film is 625px
-   tall, and under the masthead that is most of a laptop's first screen: the
-   sentence that does the selling ("Step through a locked door…") starts around
-   the fold on a short window. The film was briefly capped at 40rem to fix that
-   and the mismatched edges looked worse than the problem. Cropping to a
-   letterbox would buy the height back, at the cost of the top and bottom of the
-   picture, and was turned down too.
-
-   So if the hook needs to come further up, take the space from ABOVE it rather
-   than from the film — the masthead's padding is the next candidate, and the
-   home page's <h1> and dateline have already gone for this reason. Do not
-   re-cap the width. */
+   The `* 0.5` is taken from the SHEET's formula rather than written as a
+   percentage, for two reasons. A percentage would resolve against the body and
+   so against the window, not against the sheet, and it would shrink the film on
+   a PHONE — where it is only ~180px tall, blocks nothing, and already looked
+   right. Half of the sheet formula is ~404px even at the narrowest padding, so
+   on any phone the screen itself is the binding constraint and the film simply
+   fills the width, exactly as before. The cap only starts to bite once there is
+   room to spare. */
 .hero {
-  max-width: calc(var(--measure) + var(--sheet-pad) * 2);
+  max-width: calc((var(--measure) + var(--sheet-pad) * 2) * 0.5);
   margin: 0 auto clamp(1.5rem, 4vw, 2.75rem);
   background: var(--brown-deep);
   border: 1px solid rgba(58, 42, 28, 0.35);
@@ -529,9 +532,11 @@ code, .key {
   /* The min() is the guard band: between the breakpoint and the sheet's full
      width there would otherwise be no brown left at the edges, and the sheet
      would sit flush against the window. */
+  /* .hero is deliberately absent here: it is half the sheet's width in its own
+     rule, and listing it would silently restore the full width at exactly the
+     sizes where the film was burying the hook. */
   .sheet,
-  .footer,
-  .hero {
+  .footer {
     max-width: min(
       calc(var(--rail) + var(--gap) + var(--measure) + var(--sheet-pad) * 2),
       calc(100% - 3rem)
@@ -562,6 +567,45 @@ code, .key {
   .doc-head > .body > .lede { margin-top: 0.2rem; }
 
   h1 { margin-bottom: 0.5rem; }
+
+  /* ---------------------------------------------- the home page opts out --
+     The rail earns its keep on a long unbroken document: the heading stays
+     beside you through 2,000px of privacy policy. It stops earning it the
+     moment the sections contain PICTURES. A plate is 460–660px tall, the
+     heading beside it is one line, and the other 20rem of the rail is empty —
+     so every image on the home page sat next to a tall column of nothing,
+     which read as a hole in the page rather than as a margin.
+
+     So .home stacks, exactly as every page does below the breakpoint: heading
+     above its section, full measure underneath. The sheet and footer drop back
+     to the single-column width to match, because a stacked heading over the
+     RAIL-WIDE sheet would set the prose at ~130 characters a line — the very
+     thing the layout note at the top of this file exists to prevent.
+
+     Scoped to .home rather than applied to .doc-section outright: privacy and
+     support are long, text-only, and are the pages the rail was built for. */
+  .home .sheet,
+  .home .footer {
+    max-width: calc(var(--measure) + var(--sheet-pad) * 2);
+  }
+
+  .home .doc-section {
+    display: block;
+    margin-top: 2.6rem;
+    padding-top: 0.9rem;
+  }
+
+  /* Must follow .home .doc-section — same specificity, and the opening section
+     takes no top margin, padding or rule. */
+  .home .doc-head {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .home .doc-section > .rail {
+    position: static;
+    text-align: left;
+  }
 }
 
 /* ================================================================ NARROW ==
