@@ -15,7 +15,9 @@ public/            everything that is served, exactly as served
   support.html     served at /support
   privacy.html     served at /privacy
   404.html
-  favicon.svg
+  favicon.ico        the gold exit portal, from the app icon (16/32/48)
+  icon-192.png       the same, larger, for browsers that prefer PNG
+  apple-touch-icon.png  the same on the sepia floor, for home-screen bookmarks
   robots.txt
   sitemap.xml
   _headers         security headers, including the CSP

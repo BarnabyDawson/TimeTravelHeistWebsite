@@ -4,17 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — Time Travel Heist</title>
-<meta name="description" content="How the Time Travel Heist Android game and timetravelheist.co.uk handle your data. The game collects nothing and makes no network connections; the website sets no cookies and runs no analytics.">
+<meta name="description" content="How the Time Travel Heist Android game and timetravelheist.co.uk handle your data. The game collects no personal information, only anonymous play statistics used to improve it; the website sets no cookies and runs no analytics.">
 <link rel="canonical" href="https://timetravelheist.co.uk/privacy">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Time Travel Heist">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="Privacy Policy — Time Travel Heist">
-<meta property="og:description" content="The game collects nothing and contacts no server. This site sets no cookies and runs no analytics.">
+<meta property="og:description" content="The game collects no personal information, only anonymous play statistics, never shared or used for advertising. This site sets no cookies and runs no analytics.">
 <meta property="og:url" content="https://timetravelheist.co.uk/privacy">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#241a12">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
@@ -39,7 +41,7 @@
   <section class="doc-section doc-head">
     <div class="rail">
       <h1>Privacy Policy</h1>
-      <p class="dateline">Last updated 17 September 2026</p>
+      <p class="dateline">Last updated 23 September 2026</p>
     </div>
     <div class="body">
       <p class="lede">
@@ -52,9 +54,9 @@
       <section class="summary" aria-labelledby="summary-heading">
         <h2 id="summary-heading">The short version</h2>
         <ul>
-          <li><strong>The game collects nothing.</strong> No account, no sign-in, no profile.</li>
-          <li><strong>The game contacts no server.</strong> Every level, image and sound is inside the app. It plays identically in aeroplane mode.</li>
-          <li><strong>No advertising, no in-app purchases, no analytics, no tracking, no third-party SDKs.</strong></li>
+          <li><strong>The game collects no personal information.</strong> No account, no sign-in, no profile.</li>
+          <li><strong>The game sends anonymous play statistics</strong> — which levels are attempted and completed, how long they take, how often hints are used, which sections are unlocked — so that we can see where the puzzles need improving. Nothing in them identifies you, and the game plays identically in aeroplane mode.</li>
+          <li><strong>Those statistics are never shared with third parties, sold, or used for advertising.</strong> There is no advertising, no in-app purchase, no tracking and no third-party SDK in the game.</li>
           <li><strong>Your progress stays on your phone</strong>, and is deleted when you uninstall the game.</li>
           <li><strong>This website sets no cookies, runs no analytics and contains no scripts at all</strong> — no third-party fonts, video embeds or social widgets either. Every file it serves, the front page's film included, comes from this domain.</li>
         </ul>
@@ -86,19 +88,52 @@
     <div class="rail"><h2>The Android game</h2></div>
     <div class="body">
 
-      <h3>What we collect: nothing</h3>
+      <h3>What we collect: anonymous play statistics</h3>
 
       <p>
-        We do not collect, receive, transmit, sell or share any information about you or your device.
-        Not your name, email address, contacts, location, advertising ID, device identifiers, IP
-        address, photos, files or usage statistics. We could not tell you how many levels you have
-        finished, because that information never leaves your phone and we have nowhere to put it.
+        To make the game better, it sends us anonymous statistics about how it is played. These are
+        records of events in the game, such as:
+      </p>
+
+      <ul>
+        <li>a level being started, restarted, abandoned or completed;</li>
+        <li>how long a level took, and in how many turns;</li>
+        <li>a hint being asked for, and which one;</li>
+        <li>a new section of the game being unlocked;</li>
+        <li>similar usage figures of the same kind, together with the app version and language setting, so that figures from different releases and translations are not mixed together.</li>
+      </ul>
+
+      <p>
+        We use them for one purpose: improving the game. They tell us which puzzles are too hard or too
+        easy, where players get stuck and give up, and whether the hints actually help — the things a
+        small studio otherwise only learns from the few people who write in.
+      </p>
+
+      <h3>What we do not collect</h3>
+
+      <p>
+        We do not collect your name, email address, Google account, contacts, location, advertising
+        ID, device identifiers, photos or files, and the statistics carry nothing that ties them to
+        you. Your connection's IP address necessarily reaches the server that receives them, as it
+        does with any request on the internet, but it is not stored with the statistics or used to
+        identify you.
+      </p>
+
+      <h3>Who sees the statistics</h3>
+
+      <p>
+        Only us. They are <strong>not shared with any third party, not sold, and not used for
+        advertising</strong> or to build a profile of anybody. The game contains no analytics,
+        advertising or crash-reporting library from another company; the statistics go straight to
+        a server we run, whose hosting provider stores them on our behalf and may not use them for
+        anything else. We keep them for as long as they are useful for improving the game, and look
+        at them in aggregate — how many players finished a level, not what any one player did.
       </p>
 
       <p>
-        This is a structural property of the app rather than a promise about our intentions. The game
-        is a self-contained bundle of files that runs offline; there is no server anywhere for it to
-        send anything to, and no analytics, advertising or crash-reporting library compiled into it.
+        Everything else about the game is unchanged: every level, image and sound is inside the app,
+        and it plays identically in aeroplane mode. While your phone is offline the statistics are
+        simply not sent.
       </p>
 
       <h3>What the game saves on your device</h3>
@@ -150,10 +185,10 @@
           else uses it, and you can set it to Off in the game's settings.
         </li>
         <li>
-          <strong>Internet</strong> — required by the framework the game is built on in order to load
-          the game's <em>own</em> bundled files inside its display component. The game makes no outbound
-          network requests whatsoever. You can confirm this by playing it with the phone in aeroplane
-          mode: everything works.
+          <strong>Internet</strong> — used to send the anonymous play statistics described above, and
+          required by the framework the game is built on in order to load the game's <em>own</em>
+          bundled files inside its display component. The game downloads nothing: you can play it with
+          the phone in aeroplane mode and everything works.
         </li>
       </ul>
 
@@ -177,8 +212,9 @@
       <p>
         The game is a single-player puzzle with no chat, no social features, no user-generated content
         and no links out of the app. Because it collects no personal information from anyone, it
-        collects none from children either, and there is nothing for a parent to request the deletion
-        of beyond uninstalling it. Please see the game's age rating on Google Play for guidance on
+        collects none from children either: the anonymous play statistics identify no one, and
+        there is nothing for a parent to request the deletion of beyond
+        uninstalling it. Please see the game's age rating on Google Play for guidance on
         story content.
       </p>
 
@@ -284,7 +320,10 @@
 
       <p>
         In practice we hold almost nothing to exercise them against: we have no account records, no
-        identifiers and no database of players, so we cannot look you up. The data the game saves is on
+        identifiers and no database of players, so we cannot look you up — the play statistics are
+        anonymous, which also means we cannot pick out yours to show you or delete. Our lawful basis
+        for collecting them is our legitimate interest in improving the game, which is why we collect
+        so little and nothing personal. The data the game saves is on
         your device and under your control — clearing the app's data erases all of it immediately, with
         no request to us needed. Where server logs held by our host constitute personal data, our
         lawful basis is legitimate interest in keeping the site running and secure. If you want to
