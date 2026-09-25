@@ -3,7 +3,7 @@
   "private": true,
   "description": "Companion site for the Time Travel Heist Android game — timetravelheist.co.uk",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --local-protocol https",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
