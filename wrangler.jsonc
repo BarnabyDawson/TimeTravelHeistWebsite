@@ -1,14 +1,16 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
 
-  // Static-assets-only Worker: no `main`, so Cloudflare serves `public/`
-  // directly from its edge cache and never boots a script.
+  // Static assets plus ONE script. `public/` is served straight from Cloudflare's
+  // edge cache; `main` handles only the paths in `run_worker_first` below — the
+  // game's play-statistics endpoint — so a page view still never boots a script.
   //
   // `name` must match the Worker that the Workers Builds connection created,
   // otherwise `wrangler deploy` will quietly create a SECOND Worker and the
   // custom domain will still point at the empty one.
   "name": "timetravelheist-website",
   "compatibility_date": "2026-09-12",
+  "main": "src/worker.js",
 
   // No workers.dev subdomain. The site would otherwise also be live at
   // timetravelheist-website.<account>.workers.dev, serving the same pages
@@ -35,6 +37,24 @@
     // <link rel="canonical"> tags already claim. This is wrangler's default,
     // stated here so a future edit doesn't silently break those URLs.
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
-  }
+    "not_found_handling": "404-page",
+    // The script reaches the static files through this, for anything it is
+    // handed that is not its own (it is only handed /api/*, so in practice never).
+    "binding": "ASSETS",
+    // The only requests that run src/worker.js. Everything else is an asset.
+    "run_worker_first": ["/api/*"]
+  },
+
+  // The play-statistics database (see migrations/ and README.md). `database_id`
+  // comes from `npx wrangler d1 create tth-metrics`; migrations are applied with
+  // `npx wrangler d1 migrations apply tth-metrics --remote` before the deploy
+  // that first needs them.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tth-metrics",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ]
 }
