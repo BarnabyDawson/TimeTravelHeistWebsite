@@ -53,7 +53,7 @@
     {
       "binding": "DB",
       "database_name": "tth-metrics",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "4dbcd4cf-2892-4627-a665-164c03f6a7e1",
       "migrations_dir": "migrations"
     }
   ]
