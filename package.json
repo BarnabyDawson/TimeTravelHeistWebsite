@@ -1,10 +1,12 @@
 {
   "name": "timetravelheist-website",
   "private": true,
+  "type": "module",
   "description": "Companion site for the Time Travel Heist Android game — timetravelheist.co.uk",
   "scripts": {
     "dev": "wrangler dev --local-protocol https",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "test": "node test/report.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.133.0"

@@ -2,4 +2,9 @@
 User-agent: *
 Allow: /
 
+# The private play-statistics report (src/report.js). It is behind a secret and
+# sends X-Robots-Tag: noindex anyway; this is the belt to that braces, and it
+# names the path for anyone reading the file rather than the code.
+Disallow: /report
+
 Sitemap: https://timetravelheist.co.uk/sitemap.xml

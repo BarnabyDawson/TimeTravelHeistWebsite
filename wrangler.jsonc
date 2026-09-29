@@ -42,7 +42,9 @@
     // handed that is not its own (it is only handed /api/*, so in practice never).
     "binding": "ASSETS",
     // The only requests that run src/worker.js. Everything else is an asset.
-    "run_worker_first": ["/api/*"]
+    // `/report*` is the private statistics report (src/report.js): there is no such
+    // file in public/, so without this line it would be the 404 page instead.
+    "run_worker_first": ["/api/*", "/report*"]
   },
 
   // The play-statistics database (see migrations/ and README.md). `database_id`

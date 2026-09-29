@@ -4,6 +4,7 @@
 // for a page view and the pages themselves still contain no JavaScript.
 //
 //   POST /api/v1/events   a batch of events from game/metrics.js (in the game repo) → D1
+//   GET  /report          those figures, drawn (src/report.js) — private, behind REPORT_TOKEN
 //
 // WHAT IS STORED is exactly what the privacy policy lists, and it is decided HERE rather than by the
 // client: every field is validated and copied across by name, so a future client that sends more
@@ -18,6 +19,8 @@
 // CORS IS OPEN (`*`), deliberately. The app's WebView calls from https://localhost, the browser build
 // from wherever it is served, and the endpoint takes no credentials and returns nothing worth
 // reading — so an allow-list would add a way to break the app and no protection.
+
+import { reportPage } from "./report.js";
 
 const MAX_BODY = 64 * 1024;
 const MAX_EVENTS = 100;
@@ -158,6 +161,17 @@ export default {
       } catch (err) {
         console.error("events insert failed", err && err.message);
         return json(500, { error: "server error" });
+      }
+    }
+
+    // The report on those figures. A page rather than an API, and private — src/report.js holds the
+    // whole of it, including the token check, so nothing about it can loosen the endpoint above.
+    if (url.pathname === "/report" || url.pathname === "/report/") {
+      try {
+        return await reportPage(request, env, url);
+      } catch (err) {
+        console.error("report failed", err && err.message);
+        return new Response("report failed\n", { status: 500, headers: { "Cache-Control": "no-store" } });
       }
     }
 
