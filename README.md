@@ -144,13 +144,22 @@ the others are linked at the top of the page.
 
 #### Getting in
 
-It is behind a shared secret, and refuses itself outright if that secret is not set —
-a missing binding must never be the thing that publishes it.
+It is behind a shared secret, and refuses itself outright if that secret is missing
+**or shorter than 16 characters** — a missing binding must never be the thing that
+publishes it, and a report behind four characters has nothing in front of it.
 
 ```sh
-node -e "console.log(crypto.randomUUID().replace(/-/g,''))"   # or any long random string
+node -e "console.log(crypto.randomUUID().replace(/-/g,''))"   # 32 chars; or any long random string
 npx wrangler secret put REPORT_TOKEN                          # paste it
 echo 'REPORT_TOKEN=...' >> .dev.vars                          # for `npm run dev`; gitignored
+```
+
+If the page says **`report not configured`**, it is one of those two, and the page
+deliberately does not say which — "your token is too short" told to anyone who asks
+narrows a guess. `npx wrangler tail` while you reload it does say which:
+
+```
+report refused: REPORT_TOKEN is 8 characters, and at least 16 are required
 ```
 
 Then `https://timetravelheist.co.uk/report?key=<the secret>`, which is a bookmark, or

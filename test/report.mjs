@@ -10,7 +10,7 @@
 // Run with `npm test` (node test/report.mjs). No framework: one `check` and a count, like the game
 // repo's own tests.
 
-import { reportPage, esc, sameSecret, axisTop, barFrac, decades, mins } from "../src/report.js";
+import { reportPage, esc, sameSecret, axisTop, barFrac, decades, mins, MIN_TOKEN } from "../src/report.js";
 
 let passed = 0;
 let failed = 0;
@@ -116,6 +116,22 @@ check("no secret configured refuses the page", r.status === 503, r.status);
 
 r = await get("https://x/report?key=" + TOKEN, { REPORT_TOKEN: "short", DB: fakeDb(FIXTURE) });
 check("a secret too short to be one refuses it too", r.status === 503, r.status);
+
+// The visitor is told the same thing either way — "too short" would narrow a guess — but whoever
+// set the secret has to be able to tell the two apart, and a secret that IS set reading back as
+// "not configured" sends them looking in the wrong place entirely.
+{
+  const said = [];
+  const err = console.error;
+  console.error = (m) => said.push(String(m));
+  const a = await get("https://x/report", { DB: fakeDb(FIXTURE) });
+  const b = await get("https://x/report", { REPORT_TOKEN: "short", DB: fakeDb(FIXTURE) });
+  console.error = err;
+  check("the visitor cannot tell missing from too short",
+    a.status === b.status && (await a.text()) === (await b.text()));
+  check("but the log can: missing says so", /not set/.test(said[0] || ""), said[0]);
+  check("and too short says how short", /5 characters/.test(said[1] || "") && new RegExp(`${MIN_TOKEN}`).test(said[1] || ""), said[1]);
+}
 
 r = await get("https://x/report", ENV());
 check("no key is not found", r.status === 404, r.status);

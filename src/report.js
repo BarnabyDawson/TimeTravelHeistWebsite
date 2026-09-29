@@ -28,14 +28,19 @@
 // ---------------------------------------------------------------------------------------------
 // WHO MAY READ IT. Nothing here is personal — there is no such thing as a player's name in this
 // database — but it is not public either, so the page is behind a shared secret in `REPORT_TOKEN`
-// (`npx wrangler secret put REPORT_TOKEN`, and `.dev.vars` locally). It is accepted as
-// `?key=` for a bookmark or as an `Authorization: Bearer` header for curl, compared in constant
-// time, and if the secret is NOT CONFIGURED the page is refused rather than opened — a missing
-// binding must never be the thing that publishes it.
+// (`npx wrangler secret put REPORT_TOKEN`, and `.dev.vars` locally), which must be at least
+// MIN_TOKEN characters. It is accepted as `?key=` for a bookmark or as an `Authorization: Bearer`
+// header for curl, compared in constant time, and if the secret is MISSING OR TOO SHORT the page is
+// refused rather than opened — a missing binding must never be the thing that publishes it. Which of
+// the two it was goes to the log, not to the visitor; `npx wrangler tail` to read it.
 //
 // The key does end up in the URL bar and so in browser history, which is why the response sends
 // `Referrer-Policy: no-referrer` (so following a link off this page cannot leak it), `X-Robots-Tag`
 // and `Cache-Control: no-store`. Rotating it is one `wrangler secret put`.
+
+// The shortest REPORT_TOKEN the page will accept. A secret shorter than this is refused rather than
+// used, because a report left behind four characters is a report with nothing in front of it.
+export const MIN_TOKEN = 16;
 
 const DEC = ["1", "10", "100", "1,000", "10,000", "100,000"];
 
@@ -347,8 +352,19 @@ export async function reportPage(request, env, url) {
   if (request.method !== "GET" && request.method !== "HEAD") return deny(405, "method not allowed\n");
 
   // Fail closed: no secret configured means no report, never an open one.
+  // Fail closed, and SAY WHICH WAY in the log. The refusal a visitor sees is the same either way on
+  // purpose — telling an unauthenticated prober "the token is too short" narrows their search — but
+  // the two causes need telling apart by whoever set it, and "not configured" for a secret that is
+  // plainly there in `wrangler secret list` is a wild goose chase. `npx wrangler tail` shows this.
   const want = env.REPORT_TOKEN;
-  if (typeof want !== "string" || want.length < 16) return deny(503, "report not configured\n");
+  if (typeof want !== "string" || want.length < MIN_TOKEN) {
+    console.error(
+      typeof want !== "string"
+        ? "report refused: REPORT_TOKEN is not set (npx wrangler secret put REPORT_TOKEN)"
+        : `report refused: REPORT_TOKEN is ${want.length} characters, and at least ${MIN_TOKEN} are required`,
+    );
+    return deny(503, "report not configured\n");
+  }
   const bearer = (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
   const key = url.searchParams.get("key") || bearer;
   if (!sameSecret(key, want)) return deny(404, "not found\n");
