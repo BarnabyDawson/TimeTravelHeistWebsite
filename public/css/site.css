@@ -460,8 +460,8 @@ code, .key {
    above the first section and takes the sheet's full width — across the rail
    as well as the text, on screens wide enough to have one. Gold rather than
    the summary panel's teal: the two must not read as the same kind of thing.
-   Quiet by design. It is the first thing on the page and it stays there until
-   the game ships, so it has to survive being looked at every visit. */
+   Quiet by design. It is the first thing on the page and it stays there on
+   every visit, so it has to survive being looked at that often. */
 .notice {
   display: block;
   margin: 0 0 2.6rem;

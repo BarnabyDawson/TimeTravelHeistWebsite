@@ -71,16 +71,13 @@
 
 <main class="sheet">
 
-  <!-- Pre-release notice. The game is not on Google Play yet, and this page
-       otherwise reads as though it were — it describes the game in the present
-       tense throughout and offers no download, which is a confusing pair without
-       this. Delete this block on the day the app goes live; the .notice rule in
-       site.css can stay where it is. It deliberately offers no "tell me when it
-       is out": the privacy policy promises we never put an address on a mailing
-       list, and an email box here would be exactly that. -->
-  <aside class="notice" aria-label="Release status">
-    <b>Coming soon</b>
-    <p>Time Travel Heist is not on Google Play yet, so there is nothing to download here today.</p>
+  <!-- Where to get it. This was the "Coming soon" box until launch, and it keeps that
+       box's place and its .notice styling: the first thing on the page, across the full
+       sheet. A plain link rather than Google's badge image, so the page still loads
+       nothing from anyone else. The id in the URL is the app's permanent applicationId. -->
+  <aside class="notice" aria-label="Get the game">
+    <b>Out now on Android</b>
+    <p><a href="https://play.google.com/store/apps/details?id=uk.co.timetravelheist.app">Get Time Travel Heist on Google Play</a>. Free to try; a single one-time purchase unlocks the full campaign &mdash; no subscription, no adverts.</p>
   </aside>
 
   <section class="doc-section doc-head">
@@ -89,8 +86,7 @@
          out of sight: a page with no h1 at all gives a screen reader nothing to
          announce as the document's subject and drops the strongest heading signal a
          search engine has. "A puzzle game for Android" is gone outright — the
-         "Coming soon" box already says it, and the install button that replaces it
-         on release will say it again. -->
+         Google Play box directly above already says it. -->
     <div class="rail">
       <h1 class="visually-hidden">Time Travel Heist &mdash; a puzzle game for Android</h1>
     </div>
