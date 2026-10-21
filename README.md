@@ -20,6 +20,8 @@ public/            everything that is served, exactly as served
   index.html       the game
   support.html     served at /support
   privacy.html     served at /privacy
+  blog.html        served at /blog: the list of posts, newest first
+  blog/<slug>.html one post each, served at /blog/<slug>
   404.html
   favicon.ico        the gold exit portal, from the app icon (16/32/48)
   icon-192.png       the same, larger, for browsers that prefer PNG
@@ -82,6 +84,23 @@ relax `script-src` for that path alone, and edit the privacy policy in the same
 commit. The claims that need narrowing are the last bullet of "The short version"
 and the whole of "Analytics". There is a comment in `privacy.html` at the point
 where the demo's own paragraph should go back in.
+
+## The blog
+
+Hand-written static pages like the rest of the site. There is no generator, no
+feed and no template engine: a post is an HTML file, and the index is edited by hand.
+
+**A post's address is permanent.** The URLs are used in marketing, so once a post
+is live never rename or delete its file. Fix the words inside it instead.
+
+To add a post:
+
+1. Copy `public/blog/future-helps-the-past.html` to `public/blog/<slug>.html`. The
+   slug is short, lowercase and hyphenated, and it becomes the URL.
+2. Change the `<title>`, the description, every `og:` tag, `canonical`,
+   `article:published_time`, the `<h1>` and the `<time>`, then replace the body.
+3. Add an entry to the top of `public/blog.html`, copying the existing one.
+4. Add the URL to `public/sitemap.xml`.
 
 ## Still to build
 
