@@ -508,7 +508,10 @@ code, .key {
 
 /* The statutory company identification. Required on every page, so it is set
    quietly — present and legible, but not competing with the content. */
-.legal-id {
+/* `.footer .legal-id`, not `.legal-id`: `.footer p` sets `margin: 0.3rem 0`, and a
+   bare class loses to it, which zeroed the auto margins and left this paragraph
+   hanging off-centre on wide screens. */
+.footer .legal-id {
   max-width: 34rem;
   margin-inline: auto;
   font-size: 0.74rem;
